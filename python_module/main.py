@@ -166,8 +166,8 @@ if __name__ == '__main__':
 
     simple_gradient(X=XX, Y=YY, batch_size=len(XX), alpha=0.01, w_0=init_w, true_w=WW,
                     name="simple gradient, batch_size = all")
-    simple_gradient(X=XX, Y=YY, batch_size=16, alpha=0.01, w_0=init_w, true_w=WW,
-                    name="minibatch gradient, batch_size = 16")
+    simple_gradient(X=XX, Y=YY, batch_size=32, alpha=0.01, w_0=init_w, true_w=WW,
+                    name="minibatch gradient, batch_size = 32")
     simple_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
                     name="stochastic gradient, batch_size = 1")
 
@@ -176,21 +176,21 @@ if __name__ == '__main__':
 
     simple_gradient(X=XX_st, Y=YY, batch_size=len(XX), alpha=0.1, w_0=init_w, true_w=WW_st,
                     name="norm simple gradient, batch_size = all")
-    simple_gradient(X=XX_st, Y=YY, batch_size=16, alpha=0.1, w_0=init_w, true_w=WW_st,
-                    name="norm minibatch gradient, batch_size = 16")
+    simple_gradient(X=XX_st, Y=YY, batch_size=32, alpha=0.1, w_0=init_w, true_w=WW_st,
+                    name="norm minibatch gradient, batch_size = 32")
     simple_gradient(X=XX_st, Y=YY, batch_size=1, alpha=0.1, w_0=init_w, true_w=WW_st,
                     name="norm stochastic gradient, batch_size = 1")
 
     moment_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
-                    name="moment stochastic gradient, beta = 0.3", beta=0.3)
+                    name="moment stochastic gradient, beta = 0.2", beta=0.2)
     moment_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
-                    name="moment stochastic gradient, beta = 0.5", beta=0.5)
+                    name="moment stochastic gradient, beta = 0.6", beta=0.6)
     moment_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
                     name="moment stochastic gradient, beta = 0.8", beta=0.8)
 
     nesterov_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
-                      name="nesterov stochastic gradient, beta = 0.3", beta=0.3)
+                      name="nesterov stochastic gradient, beta = 0.2", beta=0.2)
     nesterov_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
-                      name="nesterov stochastic gradient, beta = 0.5", beta=0.5)
+                      name="nesterov stochastic gradient, beta = 0.6", beta=0.6)
     nesterov_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
                       name="nesterov stochastic gradient, beta = 0.8", beta=0.8)
