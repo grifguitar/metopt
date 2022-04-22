@@ -12,3 +12,7 @@
 ![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot9.png?raw=true)
 ![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot10.png?raw=true)
 ![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot11.png?raw=true)
+![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot12.png?raw=true)
+![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot13.png?raw=true)
+![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot14.png?raw=true)
+![image.png](https://github.com/grifguitar/metopt/blob/main/img/newplot15.png?raw=true)

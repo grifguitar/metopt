@@ -33,7 +33,7 @@ def gen_data():
 
 
 def gradient_descent(X, Y, batch_size, alpha=0.01, eps=0.1, w_0=None, true_w=None,
-                     isMomentum=False, isNesterov=False, beta=0.1):
+                     isMomentum=False, isNesterov=False, isAdaGrad=False, isRMSProp=False, beta=0.1):
     # default weights:
     if w_0 is None:
         w_0 = np.random.uniform(-1, 1, len(X[0]))
@@ -49,8 +49,12 @@ def gradient_descent(X, Y, batch_size, alpha=0.01, eps=0.1, w_0=None, true_w=Non
     start_pos = 0
     w = w_0.copy()
     weights.append(w_0.copy())
+
+    # init for different optimizations
     moment = 0
     nesterov = np.zeros_like(w)
+    adaGrad = np.zeros_like(w)
+    rmsProp = np.zeros_like(w)
 
     while np.linalg.norm(w - true_w) >= eps:
         # remember time:
@@ -81,7 +85,15 @@ def gradient_descent(X, Y, batch_size, alpha=0.01, eps=0.1, w_0=None, true_w=Non
                 nesterov = beta * nesterov + (1 - beta) * G
                 w = w - alpha * nesterov
             else:
-                w = w - alpha * G
+                if isAdaGrad:
+                    adaGrad += G ** 2
+                    w = w - alpha * G / (np.sqrt(adaGrad) + 1e-7)
+                else:
+                    if isRMSProp:
+                        rmsProp = beta * rmsProp + (1 - beta) * (G ** 2)
+                        w = w - alpha * G / (np.sqrt(rmsProp) + 1e-7)
+                    else:
+                        w = w - alpha * G
 
         # remember new weights:
         weights.append(w.copy())
@@ -153,6 +165,20 @@ def nesterov_gradient(X, Y, batch_size, alpha, w_0, true_w, name, beta):
     my_plot(weights, true_w, X, Y, name)
 
 
+def adagrad_gradient(X, Y, batch_size, alpha, w_0, true_w, name):
+    weights, times = gradient_descent(X, Y, batch_size=batch_size, alpha=alpha, w_0=w_0, true_w=true_w,
+                                      isAdaGrad=True)
+    my_print(times, name)
+    my_plot(weights, true_w, X, Y, name)
+
+
+def rmsprop_gradient(X, Y, batch_size, alpha, w_0, true_w, name, beta):
+    weights, times = gradient_descent(X, Y, batch_size=batch_size, alpha=alpha, w_0=w_0, true_w=true_w,
+                                      isRMSProp=True, beta=beta)
+    my_print(times, name)
+    my_plot(weights, true_w, X, Y, name)
+
+
 def standardization(x):
     result = x.copy()
     result = result - np.mean(x, axis=0)
@@ -194,3 +220,13 @@ if __name__ == '__main__':
                       name="nesterov stochastic gradient, beta = 0.6", beta=0.6)
     nesterov_gradient(X=XX, Y=YY, batch_size=1, alpha=0.01, w_0=init_w, true_w=WW,
                       name="nesterov stochastic gradient, beta = 0.8", beta=0.8)
+
+    adagrad_gradient(X=XX, Y=YY, batch_size=1, alpha=1, w_0=init_w, true_w=WW,
+                     name="adagrad stochastic gradient")
+
+    rmsprop_gradient(X=XX, Y=YY, batch_size=1, alpha=1, w_0=init_w, true_w=WW,
+                     name="rmsprop stochastic gradient, beta = 0.2", beta=0.2)
+    rmsprop_gradient(X=XX, Y=YY, batch_size=1, alpha=1, w_0=init_w, true_w=WW,
+                     name="rmsprop stochastic gradient, beta = 0.6", beta=0.6)
+    rmsprop_gradient(X=XX, Y=YY, batch_size=1, alpha=1, w_0=init_w, true_w=WW,
+                     name="rmsprop stochastic gradient, beta = 0.8", beta=0.8)
